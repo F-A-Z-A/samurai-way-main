@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-export function Header() {
+export const Header = () => {
   return (
-    <div>
-      <a href="#"> Home</a> -
-      <a href="#"> News Feed</a> -
-      <a href="#"> Messages</a>
-    </div>
-  )
-}
+    <header className={"header"}>
+      <img
+        src="https://catalog-aktsiy.ru/wp-content/uploads/test_logo-335x220.png"
+        alt="image is not defined"/>
+    </header>
+  );
+};
