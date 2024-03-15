@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PostsPropsType} from "../../../index";
+import {PostsPropsType} from "../../../redux/state";
 
 type MyPostsPropsType = {
   posts: PostsPropsType[]
@@ -20,7 +20,10 @@ export const MyPosts = (props: MyPostsPropsType) => {
         </div>
       </div>
       <div className={s.posts}>
-        {props.posts.map(post => <Post id={post.id} message={post.message} likeCount={post.likesCount}/>)}
+        {props.posts.map(post => <Post id={post.id}
+                                       message={post.message}
+                                       likeCount={post.likesCount}/>)
+        }
       </div>
     </div>
   );
