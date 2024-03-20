@@ -1,3 +1,6 @@
+import {rerenderEntireTree} from "../render";
+import {v1} from "uuid";
+
 export type DialogPropsType = {
   id: number
   name: string
@@ -13,10 +16,12 @@ export type PostsPropsType = {
 };
 export type ProfilePagePropsType = {
   posts: PostsPropsType[]
+  newPostText: string
 }
 export type MessagesPagePropsType = {
-  messages: MessagesPropsType[]
   dialogs: DialogPropsType[]
+  messages: MessagesPropsType[]
+  newMessageText: string
 }
 export type StatePropsType = {
   profilePage: ProfilePagePropsType
@@ -28,9 +33,10 @@ export const state: StatePropsType = {
     posts: [
       {id: 1, message: "Hi! How are you?", likesCount: 12},
       {id: 2, message: "It's my name", likesCount: 11},
-      {id: 3, message: "Blabla", likesCount: 10},
-      {id: 4, message: "Dadada", likesCount: 9},
+      {id: 3, message: "Bla-bla-bla", likesCount: 10},
+      {id: 4, message: "Da-da-da", likesCount: 9},
     ],
+    newPostText: ""
   },
   dialogsPage: {
     dialogs: [
@@ -48,10 +54,38 @@ export const state: StatePropsType = {
       {id: 4, message: "Go-go"},
       {id: 5, message: "Wow-Wow"},
     ],
+    newMessageText: ""
   }
 };
 
-export const addPost = (postMessage: string) => {
-  const newPost = {id: 5, message: postMessage, likesCount: 0};
+export const addPost = () => {
+  const newPost: PostsPropsType = {
+    id: 5,
+    message: state.profilePage.newPostText,
+    likesCount: 0
+  };
   state.profilePage.posts.push(newPost);
+  state.profilePage.newPostText = "";
+  rerenderEntireTree(state)
 }
+
+export const updateNewPostText = (newPostText: string) => {
+  state.profilePage.newPostText = newPostText
+  rerenderEntireTree(state)
+}
+
+export const addMessage = () => {
+  const newMessage: MessagesPropsType = {
+    id: 6,
+    message: state.dialogsPage.newMessageText
+  };
+  state.dialogsPage.messages.push(newMessage);
+  state.dialogsPage.newMessageText = "";
+  rerenderEntireTree(state)
+}
+
+export const updateNewMessageText = (newMessageText: string) => {
+  state.dialogsPage.newMessageText = newMessageText
+  rerenderEntireTree(state)
+}
+
