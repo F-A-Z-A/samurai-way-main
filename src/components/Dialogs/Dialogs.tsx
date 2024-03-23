@@ -1,15 +1,8 @@
-import React, {ChangeEvent, useRef} from "react";
+import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {
-  addMessage,
-  DialogPropsType,
-  MessagesPagePropsType,
-  MessagesPropsType,
-  PostsPropsType,
-  updateNewMessageText
-} from "../../redux/state";
+import {MessagesPagePropsType} from "../../redux/state";
 
 type DialogsPropsType = {
   state: MessagesPagePropsType
@@ -37,7 +30,7 @@ export const Dialogs = (props: DialogsPropsType) => {
   }
   
   const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    updateNewMessageText(e.currentTarget.value)
+    props.updateNewMessageText(e.currentTarget.value)
   }
   
   return (
