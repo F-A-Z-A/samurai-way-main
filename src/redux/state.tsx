@@ -1,40 +1,57 @@
-export type DialogPropsType = {
+export type DialogType = {
   id: number
   name: string
 };
-export type MessagesPropsType = {
+export type MessagesType = {
   id: number
   message: string
 };
-export type PostsPropsType = {
+export type PostsType = {
   id: number
   message: string
   likesCount: number
 };
-export type ProfilePagePropsType = {
-  posts: PostsPropsType[]
+export type ProfilePageType = {
+  posts: PostsType[]
   newPostText: string
 }
-export type MessagesPagePropsType = {
-  dialogs: DialogPropsType[]
-  messages: MessagesPropsType[]
+export type MessagesPageType = {
+  dialogs: DialogType[]
+  messages: MessagesType[]
   newMessageText: string
 }
-export type StatePropsType = {
-  profilePage: ProfilePagePropsType
-  dialogsPage: MessagesPagePropsType
+export type StateType = {
+  profilePage: ProfilePageType
+  dialogsPage: MessagesPageType
 };
-
 export type StoreType = {
-  _state: StatePropsType
-  _callSubscriber: (_state: StatePropsType) => void
-  subscribe: (callback: (_state: StatePropsType) => void) => void
-  addPost: () => void
-  updateNewPostText: (newPostText: string) => void
-  addMessage: () => void
-  updateNewMessageText: (newMessageText: string) => void
-  getState: () => StatePropsType
+  _state: StateType
+  _callSubscriber: (_state: StateType) => void
+  subscribe: (callback: (_state: StateType) => void) => void
+  getState: () => StateType
+  dispatch: (action: ActionsTypes) => void
 }
+
+type AddPostActionType = {
+  type: "ADD_POST"
+}
+type UpdateNewPostText = {
+  type: "UPDATE_NEW_POST_TEXT"
+  newPostText: string
+}
+type AddMessageActionType = {
+  type: "ADD_MESSAGE"
+}
+type UpdateNewMessageText = {
+  type: "UPDATE_NEW_MESSAGE_TEXT"
+  newMessageText: string
+}
+
+export type ActionsTypes =
+  AddPostActionType
+  | UpdateNewPostText
+  | AddMessageActionType
+  | UpdateNewMessageText
 
 export const store: StoreType = {
   _state: {
@@ -66,41 +83,40 @@ export const store: StoreType = {
       newMessageText: ""
     }
   },
+  _callSubscriber(_state: StateType) {
+  },
   getState() {
     return this._state
   },
-  _callSubscriber(_state: StatePropsType) {
-  },
-  subscribe(callback: (_state: StatePropsType) => void) {
+  subscribe(callback: (_state: StateType) => void) {
     this._callSubscriber = callback
   },
-  addPost() {
-    const newPost: PostsPropsType = {
-      id: 5,
-      message: this._state.profilePage.newPostText,
-      likesCount: 0
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = "";
-    this._callSubscriber(this._state)
-  },
-  updateNewPostText(newPostText: string) {
-    this._state.profilePage.newPostText = newPostText
-    this._callSubscriber(this._state)
-  },
-  addMessage() {
-    const newMessage: MessagesPropsType = {
-      id: 6,
-      message: this._state.dialogsPage.newMessageText
-    };
-    this._state.dialogsPage.messages.push(newMessage);
-    this._state.dialogsPage.newMessageText = "";
-    this._callSubscriber(this._state)
-  },
-  updateNewMessageText(newMessageText: string) {
-    this._state.dialogsPage.newMessageText = newMessageText
-    this._callSubscriber(this._state)
-  },
+  dispatch(action) {
+    if (action.type === "ADD_POST") {
+      const newPost: PostsType = {
+        id: 5,
+        message: this._state.profilePage.newPostText,
+        likesCount: 0
+      };
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.newPostText = "";
+      this._callSubscriber(this._state)
+    } else if (action.type === "UPDATE_NEW_POST_TEXT") {
+      this._state.profilePage.newPostText = action.newPostText
+      this._callSubscriber(this._state)
+    } else if (action.type === "ADD_MESSAGE") {
+      const newMessage: MessagesType = {
+        id: 6,
+        message: this._state.dialogsPage.newMessageText
+      };
+      this._state.dialogsPage.messages.push(newMessage);
+      this._state.dialogsPage.newMessageText = "";
+      this._callSubscriber(this._state)
+    } else if (action.type === "UPDATE_NEW_MESSAGE_TEXT") {
+      this._state.dialogsPage.newMessageText = action.newMessageText
+      this._callSubscriber(this._state)
+    }
+  }
 };
 
 declare global {
@@ -108,7 +124,6 @@ declare global {
     store: StoreType;
   }
 }
-
 window.store = store;
 
 

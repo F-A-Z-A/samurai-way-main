@@ -5,41 +5,32 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Profile} from "./components/Profile/Profile";
 import {Route} from "react-router-dom";
-import {StatePropsType} from "./redux/state";
+import {ActionsTypes, StateType} from "./redux/state";
 
 type AppPropsType = {
-  state: StatePropsType
-  addPost: () => void
-  updateNewPostText: (newPostText: string) => void
-  addMessage: () => void
-  updateNewMessageText: (newMessageText: string) => void
+  state: StateType
+  dispatch: (action: ActionsTypes) => void
 };
 
 export const App: React.FC<AppPropsType> = (props) => {
   
   return (
     <div className={"app-wrapper"}>
-      <Header/>;
-      <Navbar/>;
+      <Header/>
+      <Navbar/>
       <div className={"app-wrapper-content"}>
-        <Route path="/dialogs"
-               render={() => <Dialogs
-                 state={props.state.dialogsPage}
-                 addMessage={props.addMessage}
-                 updateNewMessageText={props.updateNewMessageText}
-               />}
-        />;
         <Route path="/profile"
                render={() => <Profile
                  profilePage={props.state.profilePage}
-                 addPost={props.addPost}
-                 updateNewPostText={props.updateNewPostText}
-               />}
-        />;
+                 dispatch={props.dispatch}/>}/>
+        <Route path="/dialogs"
+               render={() => <Dialogs
+                 state={props.state.dialogsPage}
+                 dispatch={props.dispatch}/>}/>
       </div>
     </div>
   );
-}
+};
 
 
 //
