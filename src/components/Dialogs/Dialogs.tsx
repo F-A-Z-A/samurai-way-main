@@ -21,7 +21,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     props.dispatch({type: "ADD_MESSAGE"});
   };
   
-  const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const updateNewMassageText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     props.dispatch({type: "UPDATE_NEW_MESSAGE_TEXT", newMessageText: e.currentTarget.value});
   };
   
@@ -38,7 +38,7 @@ export const Dialogs = (props: DialogsPropsType) => {
           {/*<textarea ref={newMessageElement}></textarea>*/}
           <textarea
             value={props.state.newMessageText}
-            onChange={onMessageChange}
+            onChange={updateNewMassageText}
           ></textarea>
         </div>
         <div>

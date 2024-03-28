@@ -31,18 +31,19 @@ export type StoreType = {
   getState: () => StateType
   dispatch: (action: ActionsTypes) => void
 }
-
-type AddPostActionType = {
+// export type AddPostActionType = ReturnType<typeof addPostAC>
+export type AddPostActionType = {
   type: "ADD_POST"
 }
-type UpdateNewPostText = {
+// export type UpdateNewPostText = ReturnType<typeof updateNewPostTextAC>
+export type UpdateNewPostText = {
   type: "UPDATE_NEW_POST_TEXT"
   newPostText: string
 }
-type AddMessageActionType = {
+export type AddMessageActionType = {
   type: "ADD_MESSAGE"
 }
-type UpdateNewMessageText = {
+export type UpdateNewMessageText = {
   type: "UPDATE_NEW_MESSAGE_TEXT"
   newMessageText: string
 }
@@ -92,32 +93,52 @@ export const store: StoreType = {
     this._callSubscriber = callback
   },
   dispatch(action) {
-    if (action.type === "ADD_POST") {
-      const newPost: PostsType = {
-        id: 5,
-        message: this._state.profilePage.newPostText,
-        likesCount: 0
-      };
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostText = "";
-      this._callSubscriber(this._state)
-    } else if (action.type === "UPDATE_NEW_POST_TEXT") {
-      this._state.profilePage.newPostText = action.newPostText
-      this._callSubscriber(this._state)
-    } else if (action.type === "ADD_MESSAGE") {
-      const newMessage: MessagesType = {
-        id: 6,
-        message: this._state.dialogsPage.newMessageText
-      };
-      this._state.dialogsPage.messages.push(newMessage);
-      this._state.dialogsPage.newMessageText = "";
-      this._callSubscriber(this._state)
-    } else if (action.type === "UPDATE_NEW_MESSAGE_TEXT") {
-      this._state.dialogsPage.newMessageText = action.newMessageText
-      this._callSubscriber(this._state)
+    switch (action.type) {
+      case "ADD_POST":
+        const newPost: PostsType = {
+          id: 5,
+          message: this._state.profilePage.newPostText,
+          likesCount: 0
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = "";
+        this._callSubscriber(this._state);
+        break;
+      case "UPDATE_NEW_POST_TEXT":
+        this._state.profilePage.newPostText = action.newPostText;
+        this._callSubscriber(this._state);
+        break;
+      case "ADD_MESSAGE":
+        const newMessage: MessagesType = {
+          id: 6,
+          message: this._state.dialogsPage.newMessageText
+        };
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessageText = "";
+        this._callSubscriber(this._state);
+        break;
+      case "UPDATE_NEW_MESSAGE_TEXT":
+        this._state.dialogsPage.newMessageText = action.newMessageText;
+        this._callSubscriber(this._state);
+        break;
     }
   }
 };
+
+const ADD_POST = "ADD_POST";
+export const addPostAC = (): AddPostActionType => {
+  return {
+    type: ADD_POST
+  }
+}
+
+const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
+export const updateNewPostTextAC = (newPostText: string): UpdateNewPostText => {
+  return {
+    type: UPDATE_NEW_POST_TEXT,
+    newPostText: newPostText
+  }
+}
 
 declare global {
   interface Window {
@@ -125,6 +146,32 @@ declare global {
   }
 }
 window.store = store;
+
+
+// if (action.type === "ADD_POST") {
+//   const newPost: PostsType = {
+//     id: 5,
+//     message: this._state.profilePage.newPostText,
+//     likesCount: 0
+//   };
+//   this._state.profilePage.posts.push(newPost);
+//   this._state.profilePage.newPostText = "";
+//   this._callSubscriber(this._state)
+// } else if (action.type === "UPDATE_NEW_POST_TEXT") {
+//   this._state.profilePage.newPostText = action.newPostText
+//   this._callSubscriber(this._state)
+// } else if (action.type === "ADD_MESSAGE") {
+//   const newMessage: MessagesType = {
+//     id: 6,
+//     message: this._state.dialogsPage.newMessageText
+//   };
+//   this._state.dialogsPage.messages.push(newMessage);
+//   this._state.dialogsPage.newMessageText = "";
+//   this._callSubscriber(this._state)
+// } else if (action.type === "UPDATE_NEW_MESSAGE_TEXT") {
+//   this._state.dialogsPage.newMessageText = action.newMessageText
+//   this._callSubscriber(this._state)
+// }
 
 
 // export const state: StatePropsType = {
