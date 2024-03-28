@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {ActionsTypes, addPostAC, PostsType, updateNewPostTextAC} from "../../../redux/state";
+import {ActionsTypes, PostsType} from "../../../redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
 
 type MyPostsPropsType = {
   posts: PostsType[]
@@ -9,7 +10,8 @@ type MyPostsPropsType = {
   newPostText: string
 };
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+  
   const postElement = props.posts.map(
     post => <Post id={post.id} message={post.message} likeCount={post.likesCount}/>
   )

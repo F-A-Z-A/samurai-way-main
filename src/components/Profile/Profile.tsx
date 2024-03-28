@@ -8,7 +8,7 @@ type ProfilePropsType = {
   dispatch: (action: ActionsTypes) => void
 }
 
-export const Profile = (props: ProfilePropsType) => {
+export const Profile: React.FC<ProfilePropsType> = (props) => {
   return (
     <div>
       <ProfileInfo/>

@@ -13,41 +13,21 @@ type AppPropsType = {
 };
 
 export const App: React.FC<AppPropsType> = (props) => {
-  
+  // console.log("App render")
   return (
     <div className={"app-wrapper"}>
       <Header/>
       <Navbar/>
       <div className={"app-wrapper-content"}>
         <Route path="/profile"
-               render={() => <Profile
-                 profilePage={props.state.profilePage}
-                 dispatch={props.dispatch}/>}/>
+               render={() => <Profile profilePage={props.state.profilePage}
+                                      dispatch={props.dispatch}/>
+               }/>
         <Route path="/dialogs"
-               render={() => <Dialogs
-                 state={props.state.dialogsPage}
-                 dispatch={props.dispatch}/>}/>
+               render={() => <Dialogs state={props.state.dialogsPage}
+                                      dispatch={props.dispatch}/>
+               }/>
       </div>
     </div>
   );
 };
-
-
-//
-// type MessagePropsType = {
-//   message: string
-// }
-//
-// function HelloMassage(props: MessagePropsType) {
-//   const postMessageRef = React.createRef<HTMLTextAreaElement>();
-//
-//   const addPost = () => {
-//     console.log(postMessageRef.current?.value)
-//   }
-//
-//   return <div>
-//     {props.message}
-//     <textarea ref={postMessageRef}></textarea>
-//     <button onClick={addPost}></button>
-//   </div>
-// }
