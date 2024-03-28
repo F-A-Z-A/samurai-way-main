@@ -35,10 +35,10 @@ export const Dialogs = (props: DialogsPropsType) => {
       </div>
       <div>
         <div>
-          {/*<textarea ref={newMessageElement}></textarea>*/}
           <textarea
             value={props.state.newMessageText}
             onChange={updateNewMassageText}
+            placeholder={"Enter your message"}
           ></textarea>
         </div>
         <div>
