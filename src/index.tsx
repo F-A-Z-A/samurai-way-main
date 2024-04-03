@@ -1,11 +1,11 @@
 import './index.css';
-import {StateType, store} from "./redux/state";
+import store, {RootStateType} from "./redux/redux-store";
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
 import React from "react";
 
-const rerenderEntireTree = (state: StateType) => {
+const rerenderEntireTree = (state: RootStateType) => {
   ReactDOM.render(
     <BrowserRouter>
       <App state={state}
@@ -15,4 +15,16 @@ const rerenderEntireTree = (state: StateType) => {
   );
 };
 rerenderEntireTree(store.getState());
-store.subscribe(rerenderEntireTree);
+console.log(store.getState())
+
+// store.subscribe(rerenderEntireTree);
+// здесь мы state не передавали, потому-что в store мы это делали в функции
+// dispatch(action) {
+//   ...
+//   this._callSubscriber(this._state);
+// }
+// меняем на :
+store.subscribe(() => {
+  rerenderEntireTree(store.getState())
+});
+// здесь мы передаем в store.subscribe анонимную функцию с определенным state rerenderEntireTree(store.getState())

@@ -90,9 +90,5 @@ export const store: StoreType = {
   }
 };
 
-declare global {
-  interface Window {
-    store: StoreType;
-  }
-}
+// @ts-ignore
 window.store = store;
