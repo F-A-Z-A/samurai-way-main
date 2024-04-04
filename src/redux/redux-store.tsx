@@ -2,8 +2,10 @@ import {combineReducers, createStore} from "redux";
 import profileReducer from "./profileReducer";
 import dialogsReducer from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
+import {StoreType} from "./store";
 
-export type RootStateType = ReturnType<typeof reducers>
+// export type RootStateType = ReturnType<typeof reducers>
+// вместо StateType в store.tsx
 
 const reducers = combineReducers({
 // combineReducers - команда Redux для объединения все reducers в объект
@@ -13,7 +15,7 @@ const reducers = combineReducers({
   sidebar: sidebarReducer
 })
 
-const store = createStore(reducers)
+const store: StoreType = createStore(reducers)
 // createStore - команда Redux для создания store
 // getState() и subscribe() уже есть внутри созданного store
 
