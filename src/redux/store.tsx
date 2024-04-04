@@ -1,31 +1,31 @@
-import profileReducer, {AddPostActionType, UpdateNewPostText} from "./profileReducer";
-import dialogsReducer, {AddMessageActionType, UpdateNewMessageText} from "./dialogsReducer";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 
-export type DialogType = {
+type DialogType = {
   id: number
   name: string
 };
-export type MessagesType = {
+type MessagesType = {
   id: number
   message: string
 };
-export type PostsType = {
+type PostsType = {
   id: number
   message: string
   likesCount: number
 };
-export type ProfilePageType = {
+type ProfilePageType = {
   posts: PostsType[]
   newPostText: string
 };
-export type MessagesPageType = {
+type MessagesPageType = {
   dialogs: DialogType[]
   messages: MessagesType[]
   newMessageText: string
 };
-export type SidebarType = {};
-export type StateType = {
+type SidebarType = {};
+type StateType = {
   profilePage: ProfilePageType
   dialogsPage: MessagesPageType
   sidebar: SidebarType
@@ -35,15 +35,15 @@ export type StoreType = {
   _callSubscriber: (_state: StateType) => void
   subscribe: (callback: (_state: StateType) => void) => void
   getState: () => StateType
-  dispatch: (action: ActionsTypes) => void
+  // dispatch: (action: ActionsTypes) => void
 };
-export type ActionsTypes =
-  AddPostActionType
-  | UpdateNewPostText
-  | AddMessageActionType
-  | UpdateNewMessageText;
+// type ActionsTypes =
+//   AddPostActionType
+//   | UpdateNewPostText
+//   | AddMessageActionType
+//   | UpdateNewMessageText;
 
-export const store: StoreType = {
+const store: StoreType = {
   _state: {
     profilePage: {
       posts: [
@@ -82,12 +82,12 @@ export const store: StoreType = {
   subscribe(observer: (_state: StateType) => void) {
     this._callSubscriber = observer
   },
-  dispatch(action) {
-    profileReducer(this._state.profilePage, action);
-    dialogsReducer(this._state.dialogsPage, action);
-    sidebarReducer(this._state.sidebar, action);
-    this._callSubscriber(this._state);
-  }
+  // dispatch(action) {
+  //   profileReducer(this._state.profilePage, action);
+  //   dialogsReducer(this._state.dialogsPage, action);
+  //   sidebarReducer(this._state.sidebar, action);
+  //   this._callSubscriber(this._state);
+  // }
 };
 
 // @ts-ignore

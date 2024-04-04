@@ -1,20 +1,16 @@
-import {ActionsTypes, MessagesPageType} from "./store";
+type AddMessageActionType = ReturnType<typeof addMessageAC>;
+type UpdateNewMessageText = ReturnType<typeof updateNewMassageTextAC>;
+type DialogType = {
+  id: number
+  name: string
+};
+export type MessageType = {
+  id: number
+  message: string
+};
+export type DialogsInitialStateType = typeof dialogsInitialState;
 
-export type AddMessageActionType = ReturnType<typeof addMessageAC>;
-export type UpdateNewMessageText = ReturnType<typeof updateNewMassageTextAC>;
-export const addMessageAC = () => {
-  return {
-    type: "ADD_MESSAGE"
-  } as const
-}
-export const updateNewMassageTextAC = (newMessageText: string) => {
-  return {
-    type: "UPDATE_NEW_MESSAGE_TEXT",
-    newMessageText: newMessageText
-  } as const
-}
-
-const initialState = {
+const dialogsInitialState = {
   dialogs: [
     {id: 1, name: "Dimych"},
     {id: 2, name: "Andrey"},
@@ -22,32 +18,45 @@ const initialState = {
     {id: 4, name: "Sasha"},
     {id: 5, name: "Viktor"},
     {id: 6, name: "Valera"},
-  ],
+  ] as DialogType[],
   messages: [
     {id: 1, message: "Hi-hi"},
     {id: 2, message: "Hey-hey"},
     {id: 3, message: "Yo-yo"},
     {id: 4, message: "Go-go"},
     {id: 5, message: "Wow-Wow"},
-  ],
+  ] as MessageType[],
   newMessageText: ""
-}
+};
 
-const dialogsReducer = (state: MessagesPageType = initialState, action: ActionsTypes): MessagesPageType => {
+export const addMessageAC = () => {
+  return {
+    type: "ADD_MESSAGE"
+  } as const
+};
+export const updateNewMassageTextAC = (newMessageText: string) => {
+  return {
+    type: "UPDATE_NEW_MESSAGE_TEXT",
+    newMessageText: newMessageText
+  } as const
+};
+
+const dialogsReducer = (
+  state: DialogsInitialStateType = dialogsInitialState,
+  action: AddMessageActionType | UpdateNewMessageText
+): DialogsInitialStateType => {
   switch (action.type) {
     case "ADD_MESSAGE":
-      state.messages.push({
-        id: 6,
-        message: state.newMessageText
-      });
-      state.newMessageText = "";
-      return state;
+      return {
+        ...state,
+        messages: [...state.messages, {id: 6, message: state.newMessageText}],
+        newMessageText: ""
+      };
     case "UPDATE_NEW_MESSAGE_TEXT":
-      state.newMessageText = action.newMessageText;
-      return state;
+      return {...state, newMessageText: action.newMessageText};
     default:
       return state;
   }
-}
+};
 
-export default dialogsReducer
+export default dialogsReducer;

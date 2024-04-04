@@ -2,23 +2,15 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {MessagesPageType} from "../../redux/store";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsPropsType = MessagesPageType & {
-  // dialogs: DialogType[]
-  // messages: MessagesType[]
-  // newMessageText: string
-  addMessage: () => void
-  updateNewMassageText: (text: string) => void
-}
-
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+export const Dialogs = (props: DialogsPropsType) => {
   
-  const dialogsElements = props.dialogs.map(
+  const dialogsElements = props.dialogsPage.dialogs.map(
     dialog => <DialogItem id={dialog.id} name={dialog.name}/>
   );
   
-  const messagesElements = props.messages.map(
+  const messagesElements = props.dialogsPage.messages.map(
     message => <Message id={message.id} message={message.message}/>
   );
   
@@ -41,7 +33,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
       <div>
         <div>
           <textarea
-            value={props.newMessageText}
+            value={props.dialogsPage.newMessageText}
             onChange={updateNewMassageText}
             placeholder={"Enter your message"}
           ></textarea>

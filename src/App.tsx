@@ -13,10 +13,10 @@ export const App = () => {
       <Navbar/>
       <div className={"app-wrapper-content"}>
         <Route path="/profile"
-               render={() => <Profile/>}
+               render={() => <Profile/>}  // MyPosts.tsx
         />
         <Route path="/dialogs"
-               render={() => <DialogsContainer/>}
+               render={() => <DialogsContainer/>}  // Dialogs.tsx
         />
       </div>
     </div>

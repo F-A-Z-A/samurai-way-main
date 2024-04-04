@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import {App} from "./App";
 import React from "react";
-import {Provider} from "./store-context";
+import {Provider} from "react-redux";
 
 const rerenderEntireTree = () => {
   ReactDOM.render(
@@ -18,3 +18,15 @@ const rerenderEntireTree = () => {
 };
 rerenderEntireTree();
 store.subscribe(rerenderEntireTree);
+
+
+// const rerenderEntireTree = (state: StateType) => {
+//   ReactDOM.render(
+//     <BrowserRouter>
+//       <App store={store}
+//       />
+//     </BrowserRouter>, document.getElementById('root')
+//   );
+// };
+// rerenderEntireTree(store.getState());
+// store.subscribe(() =>  rerenderEntireTree(store.getState()));
