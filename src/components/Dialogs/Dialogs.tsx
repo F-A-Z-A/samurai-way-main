@@ -6,12 +6,12 @@ import {DialogsPropsType} from "./DialogsContainer";
 
 export const Dialogs = (props: DialogsPropsType) => {
   
-  const dialogsElements = props.dialogsPage.dialogs.map(
-    dialog => <DialogItem id={dialog.id} name={dialog.name}/>
+  const dialogsElements = props.dialogs.map(
+    d => <DialogItem key={d.id} id={d.id} name={d.name}/>
   );
   
-  const messagesElements = props.dialogsPage.messages.map(
-    message => <Message id={message.id} message={message.message}/>
+  const messagesElements = props.messages.map(
+    m => <Message key={m.id} id={m.id} message={m.message}/>
   );
   
   const addMessage = () => {
@@ -33,7 +33,7 @@ export const Dialogs = (props: DialogsPropsType) => {
       <div>
         <div>
           <textarea
-            value={props.dialogsPage.newMessageText}
+            value={props.newMessageText}
             onChange={updateNewMassageText}
             placeholder={"Enter your message"}
           ></textarea>

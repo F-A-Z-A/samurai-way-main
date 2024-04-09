@@ -7,8 +7,7 @@ export type AppStateType = ReturnType<typeof rootReducer>;
 // этой запись для типизации того, что возвращет функция rootReducer (state всего приложения)
 
 const rootReducer = combineReducers({
-// combineReducers - команда Redux для объединения все rootReducer в объект
-// это как наш state из store.tsx с ключами profilePage, dialogsPage и sidebarReducer
+// combineReducers - команда Redux для создания rootReducer
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer

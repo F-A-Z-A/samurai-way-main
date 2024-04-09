@@ -1,30 +1,32 @@
+import {v1} from "uuid";
+
 type AddMessageActionType = ReturnType<typeof addMessageAC>;
-type UpdateNewMessageText = ReturnType<typeof updateNewMassageTextAC>;
+type UpdateNewMessageTextActionType = ReturnType<typeof updateNewMassageTextAC>;
 type DialogType = {
-  id: number
+  id: string
   name: string
 };
 export type MessageType = {
-  id: number
+  id: string
   message: string
 };
 export type DialogsInitialStateType = typeof dialogsInitialState;
 
 const dialogsInitialState = {
   dialogs: [
-    {id: 1, name: "Dimych"},
-    {id: 2, name: "Andrey"},
-    {id: 3, name: "Sveta"},
-    {id: 4, name: "Sasha"},
-    {id: 5, name: "Viktor"},
-    {id: 6, name: "Valera"},
+    {id: v1(), name: "Dimych"},
+    {id: v1(), name: "Andrey"},
+    {id: v1(), name: "Sveta"},
+    {id: v1(), name: "Sasha"},
+    {id: v1(), name: "Viktor"},
+    {id: v1(), name: "Valera"},
   ] as DialogType[],
   messages: [
-    {id: 1, message: "Hi-hi"},
-    {id: 2, message: "Hey-hey"},
-    {id: 3, message: "Yo-yo"},
-    {id: 4, message: "Go-go"},
-    {id: 5, message: "Wow-Wow"},
+    {id: v1(), message: "Hi-hi"},
+    {id: v1(), message: "Hey-hey"},
+    {id: v1(), message: "Yo-yo"},
+    {id: v1(), message: "Go-go"},
+    {id: v1(), message: "Wow-Wow"},
   ] as MessageType[],
   newMessageText: ""
 };
@@ -43,13 +45,13 @@ export const updateNewMassageTextAC = (newMessageText: string) => {
 
 const dialogsReducer = (
   state: DialogsInitialStateType = dialogsInitialState,
-  action: AddMessageActionType | UpdateNewMessageText
+  action: AddMessageActionType | UpdateNewMessageTextActionType
 ): DialogsInitialStateType => {
   switch (action.type) {
     case "ADD_MESSAGE":
       return {
         ...state,
-        messages: [...state.messages, {id: 6, message: state.newMessageText}],
+        messages: [...state.messages, {id: v1(), message: state.newMessageText}],
         newMessageText: ""
       };
     case "UPDATE_NEW_MESSAGE_TEXT":

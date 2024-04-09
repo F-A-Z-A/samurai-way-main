@@ -6,7 +6,7 @@ import {MyPostsPropsType} from "./MyPostsContainer";
 export const MyPosts = (props: MyPostsPropsType) => {
   
   const postElement = props.profilePage.posts.map(
-    post => <Post id={post.id} message={post.message} likeCount={post.likesCount}/>
+    p => <Post key={p.id} id={p.id} message={p.message} likeCount={p.likesCount}/>
   )
   
   const onAddPost = () => {
@@ -23,7 +23,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
       <div>
         <div>
           <textarea value={props.profilePage.newPostText}
-                    onChange={onNewPostText}/>
+                    onChange={onNewPostText}
+                    placeholder={"Enter your post"}/>
         </div>
         <div>
           <button onClick={onAddPost}>Add post</button>
