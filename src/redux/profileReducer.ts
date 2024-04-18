@@ -31,7 +31,7 @@ export const updateNewPostTextAC = (newPostText: string) => {
   } as const
 };
 
-const profileReducer = (
+export const profileReducer = (
   state: ProfileInitialStateType = profileInitialState,
   action: AddPostActionType | UpdateNewPostText
 ): ProfileInitialStateType => {
@@ -48,5 +48,3 @@ const profileReducer = (
       return state;
   }
 };
-
-export default profileReducer;

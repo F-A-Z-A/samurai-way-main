@@ -43,7 +43,7 @@ export const updateNewMassageTextAC = (newMessageText: string) => {
   } as const
 };
 
-const dialogsReducer = (
+export const dialogsReducer = (
   state: DialogsInitialStateType = dialogsInitialState,
   action: AddMessageActionType | UpdateNewMessageTextActionType
 ): DialogsInitialStateType => {
@@ -60,5 +60,3 @@ const dialogsReducer = (
       return state;
   }
 };
-
-export default dialogsReducer;
