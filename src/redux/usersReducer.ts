@@ -1,5 +1,3 @@
-import {v1} from "uuid";
-
 type FollowActionType = ReturnType<typeof followAC>;
 type UnfollowActionType = ReturnType<typeof unfollowAC>;
 type SetUsersActionType = ReturnType<typeof addUsersAC>;
