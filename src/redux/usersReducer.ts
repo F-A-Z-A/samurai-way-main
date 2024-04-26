@@ -6,18 +6,33 @@ type SetUsersActionType = ReturnType<typeof addUsersAC>;
 
 type ActionsTypes = FollowActionType | UnfollowActionType | SetUsersActionType
 
-type LocationType = {
-  city: string
-  country: string
+// type LocationType = {
+//   city: string
+//   country: string
+// }
+// export type UsersType = {
+//   id: string
+//   photoURL: string
+//   followed: boolean
+//   fullName: string
+//   status: string
+//   location: LocationType
+// };
+
+type PhotosType = {
+  small: string;
+  large: string;
 }
+
 export type UsersType = {
-  id: string
-  photoURL: string
-  followed: boolean
-  fullName: string
+  name: string
+  id: number
+  uniqueUrlName: string
+  photos: PhotosType
   status: string
-  location: LocationType
+  followed: boolean
 };
+
 export type UsersInitialStateType = typeof usersInitialState;
 const usersInitialState = {
   users: [] as UsersType[]
@@ -50,14 +65,14 @@ export const usersReducer = (
   }
 };
 
-export const followAC = (userID: string) => {
+export const followAC = (userID: number) => {
   return {
     type: "FOLLOW",
     payload: {userID}
   } as const
 };
 
-export const unfollowAC = (userID: string) => {
+export const unfollowAC = (userID: number) => {
   return {
     type: "UNFOLLOW",
     payload: {userID}
