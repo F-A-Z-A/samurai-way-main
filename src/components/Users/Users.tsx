@@ -5,40 +5,17 @@ import axios from "axios";
 import usersPhoto from "../../assets/images/users-photo-1.jpg"
 
 export const Users: React.FC<UsersPropsType> = (props) => {
-  if (props.users.length === 0) {
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
-      props.addUsers(response.data.items);
-    })
-    
-    // props.addUsers([
-    //   {
-    //     id: v1(),
-    //     photoURL: 'https://itbizlab.ru/wp-content/uploads/salemanager-1024x1024.png',
-    //     followed: false,
-    //     fullName: 'Dmitry',
-    //     status: 'I am a programming 1',
-    //     location: {city: 'Minsk', country: 'Belarus'}
-    //   },
-    //   {
-    //     id: v1(),
-    //     photoURL: 'https://itbizlab.ru/wp-content/uploads/salemanager-1024x1024.png',
-    //     followed: true,
-    //     fullName: 'Andrew',
-    //     status: 'I am a programming 2',
-    //     location: {city: 'Nadym', country: 'Russia'}
-    //   },
-    //   {
-    //     id: v1(),
-    //     photoURL: 'https://itbizlab.ru/wp-content/uploads/salemanager-1024x1024.png',
-    //     followed: false,
-    //     fullName: 'Sergey',
-    //     status: 'I am a programming 3',
-    //     location: {city: 'Moscow', country: 'Russia'}
-    //   },
-    // ])
+  const getUsers = () => {
+    if (props.users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
+        props.addUsers(response.data.items);
+      })
+    }
   }
+  
   return (
     <div>
+      <button onClick={getUsers}>get users</button>
       {props.users.map(u =>
         <div key={u.id}>
           <span>
