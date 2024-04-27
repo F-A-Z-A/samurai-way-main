@@ -5,20 +5,11 @@ import usersPhoto from "../../assets/images/users-photo-1.jpg"
 import {UsersPropsType} from "./UsersContainer";
 
 export class Users extends React.Component<UsersPropsType> {
-  constructor(props: UsersPropsType) {
-    super(props);
+  componentDidMount() {
     axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
       this.props.addUsers(response.data.items);
     })
   }
-  
-  // getUsers = () => {
-  //   if (this.props.users.length === 0) {
-  //     axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
-  //       this.props.addUsers(response.data.items);
-  //     })
-  //   }
-  // }
   
   render() {
     return (
