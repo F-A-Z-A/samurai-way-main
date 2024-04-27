@@ -1,8 +1,15 @@
 type FollowActionType = ReturnType<typeof followAC>;
 type UnfollowActionType = ReturnType<typeof unfollowAC>;
 type SetUsersActionType = ReturnType<typeof addUsersAC>;
+type SetCurrenPageActionType = ReturnType<typeof setCurrentPageAC>;
+type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>;
 
-type ActionsTypes = FollowActionType | UnfollowActionType | SetUsersActionType
+type ActionsTypes =
+  FollowActionType
+  | UnfollowActionType
+  | SetUsersActionType
+  | SetCurrenPageActionType
+  | SetTotalUsersCountActionType
 
 // type LocationType = {
 //   city: string
@@ -33,7 +40,10 @@ export type UsersType = {
 
 export type UsersInitialStateType = typeof usersInitialState;
 const usersInitialState = {
-  users: [] as UsersType[]
+  users: [] as UsersType[],
+  pageSize: 10,
+  totalUsersCount: 0,
+  currentPage: 1
 };
 
 export const usersReducer = (
@@ -56,7 +66,17 @@ export const usersReducer = (
     case "ADD_USERS":
       return {
         ...state,
-        users: [...state.users, ...action.payload.users]
+        users: action.payload.users
+      }
+    case "SET_CURRENT_PAGE":
+      return {
+        ...state,
+        currentPage: action.payload.currentPage
+      }
+    case "SET_TOTAL_USERS_COUNT":
+      return {
+        ...state,
+        totalUsersCount: action.payload.totalUsersCount
       }
     default:
       return state;
@@ -81,5 +101,19 @@ export const addUsersAC = (users: UsersType[]) => {
   return {
     type: "ADD_USERS",
     payload: {users}
+  } as const
+};
+
+export const setCurrentPageAC = (currentPage: number) => {
+  return {
+    type: "SET_CURRENT_PAGE",
+    payload: {currentPage}
+  } as const
+};
+
+export const setTotalUsersCountAC = (totalUsersCount: number) => {
+  return {
+    type: "SET_TOTAL_USERS_COUNT",
+    payload: {totalUsersCount}
   } as const
 };
