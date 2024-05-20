@@ -1,10 +1,10 @@
 type ActionsTypes =
-  | ReturnType<typeof followAC>
-  | ReturnType<typeof unfollowAC>
-  | ReturnType<typeof addUsersAC>
-  | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setTotalUsersCountAC>
-  | ReturnType<typeof toggleIsFetchingAC>
+  | ReturnType<typeof follow>
+  | ReturnType<typeof unfollow>
+  | ReturnType<typeof addUsers>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof setTotalUsersCount>
+  | ReturnType<typeof toggleIsFetching>
 
 type PhotosType = {
   small: string;
@@ -71,26 +71,26 @@ export const usersReducer = (
   }
 };
 
-export const followAC = (userID: number) => {
+export const follow = (userID: number) => {
   return {type: "FOLLOW", payload: {userID}} as const
 };
 
-export const unfollowAC = (userID: number) => {
+export const unfollow = (userID: number) => {
   return {type: "UNFOLLOW", payload: {userID}} as const
 };
 
-export const addUsersAC = (users: UsersType[]) => {
+export const addUsers = (users: UsersType[]) => {
   return {type: "SET_USERS", payload: {users}} as const
 };
 
-export const setCurrentPageAC = (currentPage: number) => {
+export const setCurrentPage = (currentPage: number) => {
   return {type: "SET_CURRENT_PAGE", payload: {currentPage}} as const
 };
 
-export const setTotalUsersCountAC = (totalUsersCount: number) => {
+export const setTotalUsersCount = (totalUsersCount: number) => {
   return {type: "SET_TOTAL_USERS_COUNT", payload: {totalUsersCount}} as const
 };
 
-export const toggleIsFetchingAC = (isFetching: boolean) => {
+export const toggleIsFetching = (isFetching: boolean) => {
   return {type: "TOGGLE_IS_FETCHING", payload: {isFetching}} as const
 };
