@@ -24,7 +24,7 @@ export type UsersInitialStateType = typeof usersInitialState;
 const usersInitialState = {
   users: [] as UsersType[],
   pageSize: 15,
-  totalUsersCount: 300,
+  totalUsersCount: 0,
   currentPage: 1,
   isFetching: false
 };

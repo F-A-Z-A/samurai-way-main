@@ -1,11 +1,11 @@
-import {addPostAC, ProfileInitialStateType, updateNewPostTextAC} from "../../../redux/profileReducer";
+import {addPost, ProfileStateType, updateNewPostText} from "../../../redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 import {MyPosts} from "./MyPosts";
 
 type MapStateToPropsType = {
-  profilePage: ProfileInitialStateType
+  profilePage: ProfileStateType
 };
 type MapDispatchToPropsType = {
   addPost: () => void
@@ -24,10 +24,10 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
   // Dispatch импортировать только из Redux (будет на ваыбор еще React)
   return {
     addPost: () => {
-      dispatch(addPostAC());
+      dispatch(addPost());
     },
     updateNewPostText: (text: string) => {
-      dispatch(updateNewPostTextAC(text));
+      dispatch(updateNewPostText(text));
     }
   }
 };

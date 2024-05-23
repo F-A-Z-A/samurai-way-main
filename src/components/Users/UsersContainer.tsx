@@ -15,14 +15,14 @@ import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 
-class UsersContainer extends React.Component<UsersPropsType> {
+class UsersContainer extends React.Component<UsersContainerPropsType> {
   componentDidMount() {
     axios
       .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
       .then((response) => {
         this.props.addUsers(response.data.items);
-        // this.props.setTotalUsersCount(response.data.totalCount);
-        // отключил, чтоб не грузился totalUsersCount (большое число), оно берется из usersInitialState (заадно totalUsersCount: 300)
+        this.props.setTotalUsersCount(response.data.totalCount / 90);
+        // сделал "/ 90", а то много страниц получается
       })
   }
   
@@ -52,7 +52,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
   }
 }
 
-type MapStateToPropsType = UsersInitialStateType
 type MapDispatchToPropsType = {
   follow: (userID: number) => void
   unfollow: (userID: number) => void
@@ -62,9 +61,9 @@ type MapDispatchToPropsType = {
   toggleIsFetching: (isFetching: boolean) => void
 };
 
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+type UsersContainerPropsType = UsersInitialStateType & MapDispatchToPropsType
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType): UsersInitialStateType => {
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
